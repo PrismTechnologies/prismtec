@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A quantitative research and deployment framework for strategy validation, portfolio testing, and live monitoring.">
+    <title data-config-title>Quant Framework Waitlist</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Back to top">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span data-product-name>Quant Framework</span>
+      </a>
+      <nav class="nav-actions" aria-label="Landing page sections">
+        <a class="nav-button" href="#features">Features</a>
+        <a class="nav-button" href="#pricing">Pricing</a>
+        <a class="nav-button nav-button--primary" href="#signup">Sign Up</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-dashboard" aria-hidden="true">
+          <div class="dashboard-grid">
+            <div class="panel panel-account">
+              <div class="panel-head">
+                <span>Research Account</span>
+                <small>Latest validation snapshot</small>
+              </div>
+              <div class="metric-row">
+                <div class="metric-card">
+                  <span>Equity</span>
+                  <strong>$410,635</strong>
+                </div>
+                <div class="metric-card">
+                  <span>Cash</span>
+                  <strong>$59,543</strong>
+                </div>
+                <div class="metric-card">
+                  <span>Buying Power</span>
+                  <strong>$611,132</strong>
+                </div>
+              </div>
+              <canvas id="heroChart" width="900" height="260"></canvas>
+            </div>
+
+            <div class="panel panel-positions">
+              <div class="panel-head">
+                <span>Portfolio Study</span>
+                <small>Current holdings</small>
+              </div>
+              <div class="table-like">
+                <div class="table-row table-row--head">
+                  <span>Symbol</span>
+                  <span>Qty</span>
+                  <span>Value</span>
+                  <span>PNL</span>
+                </div>
+                <div class="table-row">
+                  <span>GOOGL</span>
+                  <span>2</span>
+                  <span>770.69</span>
+                  <span class="positive">90.11</span>
+                </div>
+                <div class="table-row">
+                  <span>SMH</span>
+                  <span>5</span>
+                  <span>2,544.75</span>
+                  <span class="positive">17.25</span>
+                </div>
+                <div class="table-row">
+                  <span>TQQQ</span>
+                  <span>3</span>
+                  <span>195.48</span>
+                  <span class="positive">8.34</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-orders">
+              <div class="panel-head">
+                <span>Validation Chain</span>
+                <small>Recent research artifacts</small>
+              </div>
+              <div class="table-like table-like--wide">
+                <div class="table-row table-row--head">
+                  <span>ID</span>
+                  <span>Stage</span>
+                  <span>Asset</span>
+                  <span>Status</span>
+                  <span>Updated</span>
+                </div>
+                <div class="table-row">
+                  <span>7f30a</span>
+                  <span>Walk-forward</span>
+                  <span>SOXL</span>
+                  <span>Passed</span>
+                  <span>2:00 PM</span>
+                </div>
+                <div class="table-row">
+                  <span>91b52</span>
+                  <span>Monte Carlo</span>
+                  <span>Portfolio</span>
+                  <span>Ready</span>
+                  <span>1:56 PM</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-copy">
+          <p class="eyebrow">Research. Validate. Deploy.</p>
+          <h1 id="hero-title"><span data-product-name>Quant Framework</span></h1>
+          <p class="hero-subtitle">
+            A quantitative trading framework built for disciplined strategy research, portfolio-aware validation, and explicit live deployment handoffs.
+          </p>
+          <div class="hero-actions">
+            <a class="cta-button" href="#signup">Join the waitlist</a>
+            <a class="ghost-button" href="#features">View features</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-features" id="features" aria-labelledby="features-title">
+        <div class="section-heading">
+          <p class="eyebrow">Features</p>
+          <h2 id="features-title">A complete quant workflow, not another isolated backtester.</h2>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="feature-kicker">01</div>
+            <h3>Portfolio-aware research</h3>
+            <p>Run simple single-asset tests or expand into multi-asset, multi-strategy portfolios with capital allocation, exposure tracking, consolidated metrics, and attribution.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-kicker">02</div>
+            <h3>Validation chain</h3>
+            <p>Move from baseline backtests into parameter optimization, walk-forward validation, Monte Carlo stress testing, paper testing, and deployment review.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-kicker">03</div>
+            <h3>High-throughput execution path</h3>
+            <p>Use the reference event-driven engine for correctness, then accelerate compatible workloads through vectorized execution modes for broad research studies.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-kicker">04</div>
+            <h3>Source-aware data pipeline</h3>
+            <p>Ingest market data through a provider registry, normalize bars into a canonical store, track acquisition attempts, and reuse universes across download and research flows.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-kicker">05</div>
+            <h3>Durable catalog and lineage</h3>
+            <p>Preserve stable run identifiers, strategy versions, parameter sets, data scope, chart snapshots, reports, and downstream artifacts in a connected research record.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-kicker">06</div>
+            <h3>Manual live deployment handoff</h3>
+            <p>Promote validated candidates intentionally, emit webhook payloads to a live engine, and monitor positions, orders, PnL, signals, fills, and errors from one operator view.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section-pricing" id="pricing" aria-labelledby="pricing-title">
+        <div class="section-heading">
+          <p class="eyebrow">Pricing</p>
+          <h2 id="pricing-title">Founding pricing for serious strategy builders.</h2>
+          <p>Start on the waitlist, then choose the research depth that matches how close you are to deployment.</p>
+        </div>
+
+        <div class="pricing-grid">
+          <article class="pricing-card">
+            <p class="plan-label">Waitlist</p>
+            <h3 data-price-plan="waitlist">Free</h3>
+            <p>For traders who want launch updates and early product direction.</p>
+            <ul>
+              <li>Private build updates</li>
+              <li>Early feature surveys</li>
+              <li>Founding-user invitations</li>
+            </ul>
+            <a class="plan-button" href="#signup">Reserve spot</a>
+          </article>
+
+          <article class="pricing-card pricing-card--featured">
+            <p class="plan-label">Researcher</p>
+            <h3 data-price-plan="researcher">$49/mo</h3>
+            <p>For solo quants validating strategies before taking them live.</p>
+            <ul>
+              <li>Backtests and optimization studies</li>
+              <li>Walk-forward validation</li>
+              <li>Monte Carlo risk summaries</li>
+            </ul>
+            <a class="plan-button plan-button--primary" href="#signup">Join early access</a>
+          </article>
+
+          <article class="pricing-card">
+            <p class="plan-label">Operator</p>
+            <h3 data-price-plan="operator">$149/mo</h3>
+            <p>For active traders who need portfolio research and deployment monitoring.</p>
+            <ul>
+              <li>Portfolio-aware studies</li>
+              <li>Deployment candidate review</li>
+              <li>Live monitor workflow</li>
+            </ul>
+            <a class="plan-button" href="#signup">Request access</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section-signup" id="signup" aria-labelledby="signup-title">
+        <div class="signup-shell">
+          <div class="signup-copy">
+            <p class="eyebrow">Sign Up</p>
+            <h2 id="signup-title">Get early access before the product goes public.</h2>
+            <p>Join the early access list and help shape which workflow ships first: research, portfolio construction, validation, or live monitoring.</p>
+          </div>
+
+          <form class="signup-form" id="waitlistForm">
+            <label>
+              Email
+              <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+            </label>
+
+            <label>
+              Primary use case
+              <select id="useCase" name="use_case" required>
+                <option value="">Choose one</option>
+                <option value="strategy_research">Strategy research</option>
+                <option value="portfolio_validation">Portfolio validation</option>
+                <option value="parameter_optimization">Parameter optimization</option>
+                <option value="live_monitoring">Live monitoring</option>
+              </select>
+            </label>
+
+            <label>
+              Pricing interest
+              <select id="planInterest" name="plan_interest" required>
+                <option value="">Choose one</option>
+                <option value="waitlist">Waitlist only</option>
+                <option value="researcher">Researcher</option>
+                <option value="operator">Operator</option>
+                <option value="custom">Custom or team plan</option>
+              </select>
+            </label>
+
+            <button class="submit-button" type="submit">Join the waitlist</button>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span><span data-product-name>Quant Framework</span> early access</span>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
