@@ -11,7 +11,8 @@ const SITE_CONFIG = {
     url: "https://avzoonoexyvfhfwlwrfz.supabase.co",
     anonKey: "sb_publishable_Kqmb8WZJ__nB-j9XGBT61A_KoRXa4Pt",
     table: "waitlist",
-    statsFunction: "waitlist_public_stats"
+    statsFunction: "waitlist_public_stats",
+    demoStatsFunction: "waitlist_demo_activity_stats"
   }
 };
 
@@ -378,16 +379,40 @@ function setDemoActivityState(state) {
   window.localStorage.setItem(DEMO_ACTIVITY_KEY, JSON.stringify(state));
 }
 
-function loadDemoActivityStats() {
+async function loadDemoActivityStats() {
+  setRecentActivity(US_STATE_CODES.map((stateCode) => ({ country: "US", state_region: stateCode })));
+
+  const client = getSupabaseClient();
+  if (client) {
+    try {
+      const { data, error } = await client.rpc(SITE_CONFIG.supabase.demoStatsFunction);
+      if (error) throw error;
+
+      const totalCount = Number(data?.total_count);
+      setWaitlistCount(totalCount, "Demo activity mode. Supabase test counter, not live waitlist data.");
+      return data;
+    } catch (error) {
+      setWaitlistCount(NaN, "Apply the updated Supabase demo counter schema.");
+      return null;
+    }
+  }
+
   const state = getDemoActivityState();
   setWaitlistCount(state.count, "Demo activity mode. Simulated test count, not live waitlist data.");
-  setRecentActivity(US_STATE_CODES.map((stateCode) => ({ country: "US", state_region: stateCode })));
   return state;
 }
 
 function scheduleDemoCountGrowth() {
   window.clearTimeout(demoGrowthTimer);
   if (!isDemoActivityMode()) return;
+
+  if (getSupabaseClient()) {
+    demoGrowthTimer = window.setTimeout(async () => {
+      await loadWaitlistStats();
+      scheduleDemoCountGrowth();
+    }, 3600000);
+    return;
+  }
 
   const state = getDemoActivityState();
   const nextIncrementAt = state.lastIncrementAt + 3600000;
@@ -416,7 +441,7 @@ function addDemoSignupToCount() {
 
 async function loadWaitlistStats() {
   if (isDemoActivityMode()) {
-    loadDemoActivityStats();
+    await loadDemoActivityStats();
     return;
   }
 
