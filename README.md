@@ -1,4 +1,4 @@
-# Quant Framework Landing Page
+# PRISM Landing Page
 
 Static one-page GitHub Pages site for validating demand before launch.
 
@@ -7,7 +7,8 @@ Static one-page GitHub Pages site for validating demand before launch.
 Open `app.js` and change:
 
 ```js
-productName: "Quant Framework"
+brandPrimary: "PRISM",
+brandSecondary: "quant framework"
 ```
 
 Pricing labels live in the same `SITE_CONFIG` object.

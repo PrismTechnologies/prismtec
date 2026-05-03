@@ -76,13 +76,42 @@ select {
   letter-spacing: 0;
 }
 
-.status-dot {
-  width: 12px;
-  height: 12px;
+.brand {
+  gap: 12px;
+}
+
+.brand-mark {
+  width: 34px;
+  height: 34px;
   flex: 0 0 auto;
-  border-radius: 50%;
-  background: var(--teal);
-  box-shadow: 0 0 22px rgba(0, 208, 168, 0.7);
+  border: 1px solid rgba(143, 217, 255, 0.2);
+  border-radius: 7px;
+  background-image: url("assets/prism-logo.png");
+  background-size: 118px auto;
+  background-position: center 26%;
+  background-repeat: no-repeat;
+  box-shadow: 0 0 22px rgba(0, 208, 168, 0.16);
+}
+
+.brand-lockup {
+  display: grid;
+  gap: 1px;
+  line-height: 1;
+}
+
+.brand-primary {
+  color: var(--text-strong);
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.brand-secondary {
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: lowercase;
 }
 
 .nav-actions {
@@ -127,9 +156,10 @@ select {
   box-shadow: 0 0 28px rgba(0, 208, 168, 0.16);
 }
 
-.hero-copy,
 .section-heading,
+.hero-copy,
 .feature-card,
+.roadmap-card,
 .pricing-card,
 .signup-shell,
 .signup-copy,
@@ -139,12 +169,14 @@ select {
 
 .hero {
   position: relative;
-  min-height: calc(100svh - var(--topbar-height) - 160px);
+  min-height: clamp(640px, calc(100svh - var(--topbar-height) - 72px), 860px);
   display: grid;
-  align-items: center;
+  align-items: end;
+  padding: clamp(34px, 5vw, 72px) clamp(20px, 6vw, 84px) clamp(24px, 3vw, 42px);
   isolation: isolate;
   overflow: hidden;
   border-bottom: 1px solid var(--line-soft);
+  background: #03090d;
 }
 
 .hero::after {
@@ -153,16 +185,18 @@ select {
   inset: 0;
   z-index: -1;
   background:
-    linear-gradient(90deg, rgba(5, 11, 15, 0.86) 0%, rgba(5, 11, 15, 0.7) 42%, rgba(5, 11, 15, 0.32) 100%),
-    linear-gradient(0deg, rgba(5, 11, 15, 0.88) 0%, transparent 42%);
+    linear-gradient(90deg, rgba(5, 11, 15, 0.22) 0%, rgba(5, 11, 15, 0.04) 52%, rgba(5, 11, 15, 0.18) 100%),
+    linear-gradient(0deg, rgba(5, 11, 15, 0.86) 0%, rgba(5, 11, 15, 0.06) 34%, rgba(5, 11, 15, 0.16) 100%);
 }
 
-.hero-dashboard {
+.hero-art {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   z-index: -2;
-  padding: 64px 6vw 46px;
-  opacity: 0.92;
+  object-fit: cover;
+  object-position: center bottom;
 }
 
 .dashboard-grid {
@@ -172,8 +206,6 @@ select {
   grid-template-columns: minmax(0, 1.6fr) minmax(320px, 0.95fr);
   grid-template-rows: minmax(330px, 1fr) 170px;
   gap: 16px;
-  transform: perspective(1600px) rotateX(2deg) rotateY(-4deg) translateX(12%);
-  transform-origin: 70% 30%;
 }
 
 .panel {
@@ -237,7 +269,7 @@ select {
   font-size: clamp(18px, 1.4vw, 22px);
 }
 
-#heroChart {
+.dashboard-chart {
   width: 100%;
   height: 245px;
   display: block;
@@ -277,9 +309,16 @@ select {
 }
 
 .hero-copy {
-  width: min(760px, calc(100% - 40px));
-  margin-left: clamp(20px, 8vw, 120px);
-  padding: clamp(58px, 8vh, 90px) 0 clamp(86px, 12vh, 130px);
+  width: min(680px, 100%);
+  margin: 0;
+  padding: clamp(16px, 2vw, 24px);
+  border: 1px solid rgba(43, 112, 124, 0.45);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(180deg, rgba(5, 26, 30, 0.78), rgba(3, 14, 18, 0.86)),
+    rgba(4, 18, 22, 0.72);
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(14px);
 }
 
 .eyebrow {
@@ -308,12 +347,24 @@ h1 {
   overflow-wrap: anywhere;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .hero-subtitle {
   max-width: 650px;
-  margin-bottom: 26px;
+  margin-bottom: 16px;
   color: var(--text);
-  font-size: clamp(18px, 2.2vw, 25px);
-  line-height: 1.38;
+  font-size: clamp(18px, 1.85vw, 24px);
+  line-height: 1.34;
   overflow-wrap: anywhere;
 }
 
@@ -366,6 +417,7 @@ code {
 }
 
 .feature-grid,
+.roadmap-grid,
 .pricing-grid {
   width: min(1180px, 100%);
   margin: 0 auto;
@@ -375,6 +427,7 @@ code {
 }
 
 .feature-card,
+.roadmap-card,
 .pricing-card,
 .signup-shell {
   border: 1px solid var(--line);
@@ -393,6 +446,51 @@ code {
   padding: 22px;
 }
 
+.section-roadmap {
+  border-top: 1px solid var(--line-soft);
+  background:
+    radial-gradient(circle at 82% 18%, rgba(55, 183, 255, 0.1), transparent 28rem),
+    linear-gradient(180deg, rgba(3, 15, 20, 0.92), rgba(6, 18, 24, 0.76));
+}
+
+.roadmap-card {
+  min-height: 294px;
+  display: grid;
+  align-content: start;
+  gap: 16px;
+  padding: 22px;
+  background:
+    linear-gradient(140deg, rgba(10, 38, 46, 0.92), rgba(4, 17, 22, 0.9) 62%),
+    var(--panel);
+}
+
+.roadmap-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.roadmap-step {
+  color: var(--cyan);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.roadmap-status {
+  min-height: 28px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 10px;
+  border: 1px solid rgba(0, 208, 168, 0.38);
+  border-radius: 999px;
+  color: var(--teal);
+  background: rgba(0, 208, 168, 0.08);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
 .feature-kicker,
 .plan-label {
   width: fit-content;
@@ -403,6 +501,7 @@ code {
 }
 
 .feature-card h3,
+.roadmap-card h3,
 .pricing-card h3 {
   margin-bottom: 0;
   color: var(--text-strong);
@@ -411,6 +510,7 @@ code {
 }
 
 .feature-card p,
+.roadmap-card p,
 .pricing-card p,
 .pricing-card li {
   color: var(--muted);
@@ -427,6 +527,64 @@ code {
 
 .section-features {
   padding-top: clamp(44px, 5vw, 68px);
+}
+
+.feature-media-grid {
+  width: min(1180px, 100%);
+  margin: 22px auto 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+}
+
+.feature-media {
+  min-width: 0;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(11, 34, 42, 0.86), rgba(5, 18, 23, 0.9));
+  box-shadow: 0 18px 70px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+}
+
+.feature-media img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1672 / 941;
+  display: block;
+  object-fit: contain;
+  object-position: center top;
+  border-bottom: 1px solid var(--line);
+  background: rgba(3, 14, 19, 0.72);
+}
+
+.feature-media--wide img {
+  height: auto;
+}
+
+.feature-media figcaption {
+  display: grid;
+  gap: 7px;
+  padding: 18px;
+}
+
+.feature-media strong {
+  color: var(--text-strong);
+  font-size: 18px;
+}
+
+.feature-media span {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.feature-dashboard-showcase {
+  width: min(1180px, 100%);
+  margin: 16px auto 0;
+}
+
+.feature-dashboard-showcase .dashboard-grid {
+  width: 100%;
 }
 
 .pricing-card {
@@ -492,9 +650,47 @@ code {
   margin-bottom: 0;
 }
 
+.signup-metric {
+  width: min(360px, 100%);
+  display: grid;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(3, 14, 19, 0.56);
+}
+
+.signup-metric span,
+.signup-metric small {
+  color: var(--cyan);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.signup-metric strong {
+  color: var(--text-strong);
+  font-size: clamp(34px, 4.6vw, 54px);
+  line-height: 0.95;
+}
+
+.signup-metric small {
+  color: var(--muted);
+  font-weight: 650;
+  line-height: 1.45;
+  text-transform: none;
+}
+
 .signup-form {
   display: grid;
   gap: 16px;
+}
+
+.signup-form-row {
+  display: grid;
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1fr);
+  gap: 14px;
 }
 
 .signup-form label {
@@ -548,12 +744,60 @@ code {
   color: #ff9f7d;
 }
 
+.activity-toast {
+  position: fixed;
+  right: clamp(16px, 3vw, 34px);
+  bottom: clamp(16px, 3vw, 34px);
+  z-index: 30;
+  max-width: min(360px, calc(100vw - 32px));
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border: 1px solid rgba(0, 208, 168, 0.48);
+  border-radius: var(--radius);
+  color: var(--text-strong);
+  background:
+    linear-gradient(180deg, rgba(9, 34, 39, 0.94), rgba(4, 16, 20, 0.94)),
+    var(--panel);
+  box-shadow: 0 18px 70px rgba(0, 0, 0, 0.36), 0 0 28px rgba(0, 208, 168, 0.12);
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.activity-toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.activity-toast[hidden] {
+  display: none;
+}
+
+.activity-dot {
+  width: 10px;
+  height: 10px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 18px rgba(0, 208, 168, 0.55);
+}
+
 .footer {
   min-height: 76px;
-  justify-content: center;
+  justify-content: flex-start;
+  padding: 0 clamp(18px, 4vw, 54px);
   border-top: 1px solid var(--line-soft);
   background: #050b0f;
   color: var(--muted);
+}
+
+.brand-mark--footer {
+  width: 38px;
+  height: 38px;
+  background-size: 132px auto;
 }
 
 @media (max-width: 960px) {
@@ -581,30 +825,31 @@ code {
     font-size: 13px;
   }
 
-  .hero-dashboard {
-    padding: 70px 18px 38px;
-  }
-
   .dashboard-grid {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
-    transform: translateX(12%) scale(1.05);
-    opacity: 0.62;
   }
 
-  .panel-positions {
-    display: none;
+  .panel-orders {
+    grid-column: auto;
   }
 
   .hero-copy {
-    margin-left: 20px;
-    padding-top: 82px;
+    width: min(560px, calc(100vw - 36px));
   }
 
   .feature-grid,
+  .roadmap-grid,
+  .feature-media-grid,
   .pricing-grid,
-  .signup-shell {
+  .signup-shell,
+  .signup-form-row {
     grid-template-columns: 1fr;
+  }
+
+  .feature-media img,
+  .feature-media--wide img {
+    height: auto;
   }
 }
 
@@ -618,7 +863,7 @@ code {
   }
 
   html {
-    scroll-padding-top: 112px;
+    scroll-padding-top: 158px;
   }
 
   .brand {
@@ -626,28 +871,39 @@ code {
   }
 
   .nav-actions {
-    width: min(360px, calc(100vw - 24px));
+    width: min(330px, calc(100vw - 36px));
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     align-self: center;
   }
 
   .nav-button {
     min-width: 0;
     width: 100%;
+    font-size: 12px;
     padding-left: 4px;
     padding-right: 4px;
   }
 
   .hero {
-    min-height: 760px;
+    min-height: 700px;
+    padding: 28px 16px 42px;
+  }
+
+  .hero::after {
+    background:
+      linear-gradient(90deg, rgba(5, 11, 15, 0.15) 0%, rgba(5, 11, 15, 0.04) 54%, rgba(5, 11, 15, 0.2) 100%),
+      linear-gradient(0deg, rgba(5, 11, 15, 0.9) 0%, rgba(5, 11, 15, 0.12) 44%, rgba(5, 11, 15, 0.2) 100%);
+  }
+
+  .hero-art {
+    object-position: 32% center;
   }
 
   .hero-copy {
-    width: min(340px, calc(100vw - 32px));
-    max-width: min(340px, calc(100vw - 32px));
-    margin-left: 16px;
-    margin-right: auto;
+    width: min(330px, calc(100vw - 32px));
+    max-width: min(330px, calc(100vw - 32px));
+    padding: 16px;
   }
 
   h1 {
@@ -657,7 +913,8 @@ code {
   }
 
   .hero-subtitle {
-    font-size: 18px;
+    max-width: 100%;
+    font-size: 17px;
   }
 
   .section-heading h2,
@@ -668,6 +925,7 @@ code {
   .hero-actions {
     display: grid;
     grid-template-columns: 1fr;
+    width: 100%;
   }
 
   .metric-row {
@@ -682,6 +940,34 @@ code {
     display: none;
   }
 
+  .feature-dashboard-showcase {
+    width: min(300px, calc(100vw - 72px));
+  }
+
+  .feature-media-grid {
+    width: min(358px, calc(100vw - 32px));
+  }
+
+  .feature-grid,
+  .roadmap-grid,
+  .pricing-grid {
+    width: min(300px, calc(100vw - 72px));
+  }
+
+  .feature-grid,
+  .roadmap-grid,
+  .pricing-grid,
+  .feature-media-grid,
+  .feature-dashboard-showcase {
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  .feature-media img,
+  .feature-media--wide img {
+    height: auto;
+  }
+
   .section {
     padding-left: 16px;
     padding-right: 16px;
@@ -694,6 +980,7 @@ code {
   }
 
   .feature-card,
+  .roadmap-card,
   .pricing-card,
   .signup-shell {
     padding: 20px;

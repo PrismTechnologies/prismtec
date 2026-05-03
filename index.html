@@ -3,27 +3,101 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="A quantitative research and deployment framework for strategy validation, portfolio testing, and live monitoring.">
-    <title data-config-title>Quant Framework Waitlist</title>
+    <meta name="description" content="PRISM quant framework for strategy validation, portfolio testing, and live monitoring.">
+    <title data-config-title>PRISM Quant Framework Waitlist</title>
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <header class="topbar" aria-label="Primary navigation">
       <a class="brand" href="#top" aria-label="Back to top">
-        <span class="status-dot" aria-hidden="true"></span>
-        <span data-product-name>Quant Framework</span>
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-lockup">
+          <span class="brand-primary" data-brand-primary>PRISM</span>
+          <span class="brand-secondary" data-brand-secondary>quant framework</span>
+        </span>
       </a>
       <nav class="nav-actions" aria-label="Landing page sections">
         <a class="nav-button" href="#features">Features</a>
+        <a class="nav-button" href="#roadmap">Roadmap</a>
         <a class="nav-button" href="#pricing">Pricing</a>
         <a class="nav-button nav-button--primary" href="#signup">Sign Up</a>
       </nav>
     </header>
 
     <main id="top">
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-dashboard" aria-hidden="true">
+      <section class="hero hero-image" aria-labelledby="hero-title">
+        <img class="hero-art" src="assets/prism-generated-hero.png" alt="" aria-hidden="true">
+        <div class="hero-copy">
+          <h1 id="hero-title" class="sr-only">PRISM quantitative framework</h1>
+          <p class="eyebrow">Research. Validate. Deploy.</p>
+          <p class="hero-subtitle">
+            A quantitative trading framework built for disciplined strategy research, portfolio-aware validation, and explicit live deployment handoffs.
+          </p>
+          <div class="hero-actions">
+            <a class="cta-button" href="#signup">Join the waitlist</a>
+            <a class="ghost-button" href="#features">View features</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-features" id="features" aria-labelledby="features-title">
+        <div class="section-heading">
+          <p class="eyebrow">Features</p>
+          <h2 id="features-title">A complete quant workflow, not another isolated backtester.</h2>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="feature-kicker">01</div>
+            <h3>Portfolio-aware research</h3>
+            <p>Run simple single-asset tests or expand into multi-asset, multi-strategy portfolios with capital allocation, exposure tracking, consolidated metrics, and attribution.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-kicker">02</div>
+            <h3>Validation chain</h3>
+            <p>Move from baseline backtests into parameter optimization, walk-forward validation, Monte Carlo stress testing, paper testing, and deployment review.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-kicker">03</div>
+            <h3>High-throughput execution path</h3>
+            <p>Use the reference event-driven engine for correctness, then accelerate compatible workloads through vectorized execution modes for broad research studies.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-kicker">04</div>
+            <h3>Source-aware data pipeline</h3>
+            <p>Ingest market data through a provider registry, normalize bars into a canonical store, track acquisition attempts, and reuse universes across download and research flows.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-kicker">05</div>
+            <h3>Durable catalog and lineage</h3>
+            <p>Preserve stable run identifiers, strategy versions, parameter sets, data scope, chart snapshots, reports, and downstream artifacts in a connected research record.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-kicker">06</div>
+            <h3>Manual live deployment handoff</h3>
+            <p>Promote validated candidates intentionally, emit webhook payloads to a live engine, and monitor positions, orders, PnL, signals, fills, and errors from one operator view.</p>
+          </article>
+        </div>
+
+        <div class="feature-media-grid" aria-label="PRISM analysis previews">
+          <figure class="feature-media feature-media--wide">
+            <img src="assets/monte-carlo-generated.png" alt="Monte Carlo equity fan chart and drawdown distribution preview">
+            <figcaption>
+              <strong>Monte Carlo stress testing</strong>
+              <span>Review equity fans, terminal return distributions, drawdown probabilities, and representative paths after validation.</span>
+            </figcaption>
+          </figure>
+          <figure class="feature-media">
+            <img src="assets/correlation-matrix-generated.png" alt="Correlation matrix and low-correlation group preview">
+            <figcaption>
+              <strong>Correlation intelligence</strong>
+              <span>Compare sector and asset relationships, isolate uncorrelated pairs, and build cleaner portfolio universes.</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="feature-dashboard-showcase" aria-label="PRISM research dashboard preview">
           <div class="dashboard-grid">
             <div class="panel panel-account">
               <div class="panel-head">
@@ -44,7 +118,7 @@
                   <strong>$611,132</strong>
                 </div>
               </div>
-              <canvas id="heroChart" width="900" height="260"></canvas>
+              <canvas class="dashboard-chart" width="900" height="260"></canvas>
             </div>
 
             <div class="panel panel-positions">
@@ -111,56 +185,68 @@
             </div>
           </div>
         </div>
-
-        <div class="hero-copy">
-          <p class="eyebrow">Research. Validate. Deploy.</p>
-          <h1 id="hero-title"><span data-product-name>Quant Framework</span></h1>
-          <p class="hero-subtitle">
-            A quantitative trading framework built for disciplined strategy research, portfolio-aware validation, and explicit live deployment handoffs.
-          </p>
-          <div class="hero-actions">
-            <a class="cta-button" href="#signup">Join the waitlist</a>
-            <a class="ghost-button" href="#features">View features</a>
-          </div>
-        </div>
       </section>
 
-      <section class="section section-features" id="features" aria-labelledby="features-title">
+      <section class="section section-roadmap" id="roadmap" aria-labelledby="roadmap-title">
         <div class="section-heading">
-          <p class="eyebrow">Features</p>
-          <h2 id="features-title">A complete quant workflow, not another isolated backtester.</h2>
+          <p class="eyebrow">Roadmap</p>
+          <h2 id="roadmap-title">Planned upgrades from research desk to live operations.</h2>
+          <p>The roadmap follows the framework design docs: strengthen the data foundation, deepen validation, then scale into live portfolio operation and faster research loops.</p>
         </div>
 
-        <div class="feature-grid">
-          <article class="feature-card">
-            <div class="feature-kicker">01</div>
-            <h3>Portfolio-aware research</h3>
-            <p>Run simple single-asset tests or expand into multi-asset, multi-strategy portfolios with capital allocation, exposure tracking, consolidated metrics, and attribution.</p>
+        <div class="roadmap-grid">
+          <article class="roadmap-card">
+            <div class="roadmap-topline">
+              <span class="roadmap-step">01</span>
+              <span class="roadmap-status">Foundation</span>
+            </div>
+            <h3>Data catalog and universe engine</h3>
+            <p>Build a durable acquisition catalog with auto-ingest, provider-aware provenance, freshness summaries, scheduled task visibility, and reusable universes that drive downloads, backtests, and portfolio studies.</p>
           </article>
-          <article class="feature-card">
-            <div class="feature-kicker">02</div>
-            <h3>Validation chain</h3>
-            <p>Move from baseline backtests into parameter optimization, walk-forward validation, Monte Carlo stress testing, paper testing, and deployment review.</p>
+
+          <article class="roadmap-card">
+            <div class="roadmap-topline">
+              <span class="roadmap-step">02</span>
+              <span class="roadmap-status">Asset intelligence</span>
+            </div>
+            <h3>Asset information and screener</h3>
+            <p>Add an asset reference backbone, enrichment pipelines, provider-separated detail panes, saved filters, preview counts, and one-click handoff from screener results into universes and research workflows.</p>
           </article>
-          <article class="feature-card">
-            <div class="feature-kicker">03</div>
-            <h3>High-throughput execution path</h3>
-            <p>Use the reference event-driven engine for correctness, then accelerate compatible workloads through vectorized execution modes for broad research studies.</p>
+
+          <article class="roadmap-card">
+            <div class="roadmap-topline">
+              <span class="roadmap-step">03</span>
+              <span class="roadmap-status">Validation</span>
+            </div>
+            <h3>Optimization v2 and robustness</h3>
+            <p>Advance parameter optimization with robust-region detection, clustering, formal candidate promotion, richer explorer compare modes, walk-forward validation, and Monte Carlo stress testing as cataloged artifacts.</p>
           </article>
-          <article class="feature-card">
-            <div class="feature-kicker">04</div>
-            <h3>Source-aware data pipeline</h3>
-            <p>Ingest market data through a provider registry, normalize bars into a canonical store, track acquisition attempts, and reuse universes across download and research flows.</p>
+
+          <article class="roadmap-card">
+            <div class="roadmap-topline">
+              <span class="roadmap-step">04</span>
+              <span class="roadmap-status">Portfolio risk</span>
+            </div>
+            <h3>Portfolio-aware construction</h3>
+            <p>Extend scoring and reporting around portfolio aggregation, correlation checks, attribution, strategy and asset exposure, annual-volatility sizing, and explicit margin and gross-exposure controls.</p>
           </article>
-          <article class="feature-card">
-            <div class="feature-kicker">05</div>
-            <h3>Durable catalog and lineage</h3>
-            <p>Preserve stable run identifiers, strategy versions, parameter sets, data scope, chart snapshots, reports, and downstream artifacts in a connected research record.</p>
+
+          <article class="roadmap-card">
+            <div class="roadmap-topline">
+              <span class="roadmap-step">05</span>
+              <span class="roadmap-status">Live ops</span>
+            </div>
+            <h3>Deployment and live monitor</h3>
+            <p>Promote validated or manual deployments into a live workflow with lineage-rich webhooks, Interactive Brokers first live data, signal journaling, live metrics, and pause, resume, and stop controls.</p>
           </article>
-          <article class="feature-card">
-            <div class="feature-kicker">06</div>
-            <h3>Manual live deployment handoff</h3>
-            <p>Promote validated candidates intentionally, emit webhook payloads to a live engine, and monitor positions, orders, PnL, signals, fills, and errors from one operator view.</p>
+
+          <article class="roadmap-card">
+            <div class="roadmap-topline">
+              <span class="roadmap-step">06</span>
+              <span class="roadmap-status">Scale</span>
+            </div>
+            <h3>Fast charts and vectorized research</h3>
+            <p>Use ChartSnapshot artifacts with Magellan-ready rendering, add a ticker-driven market workspace, and phase in vectorized execution with parity checks, resumable jobs, and faster batch scheduling.</p>
           </article>
         </div>
       </section>
@@ -217,6 +303,11 @@
             <p class="eyebrow">Sign Up</p>
             <h2 id="signup-title">Get early access before the product goes public.</h2>
             <p>Join the early access list and help shape which workflow ships first: research, portfolio construction, validation, or live monitoring.</p>
+            <div class="signup-metric" aria-live="polite">
+              <span>Waitlist members</span>
+              <strong id="waitlistCount">—</strong>
+              <small id="waitlistCountNote">Connect Supabase to show the live count.</small>
+            </div>
           </div>
 
           <form class="signup-form" id="waitlistForm">
@@ -235,6 +326,28 @@
                 <option value="live_monitoring">Live monitoring</option>
               </select>
             </label>
+
+            <div class="signup-form-row">
+              <label>
+                Country
+                <select id="country" name="country" autocomplete="country-name" required>
+                  <option value="">Choose one</option>
+                  <option value="US">United States</option>
+                  <option value="CA">Canada</option>
+                  <option value="GB">United Kingdom</option>
+                  <option value="AU">Australia</option>
+                  <option value="DE">Germany</option>
+                  <option value="FR">France</option>
+                  <option value="SG">Singapore</option>
+                  <option value="Other">Other</option>
+                </select>
+              </label>
+
+              <label>
+                State / region
+                <input id="stateRegion" name="state_region" type="text" autocomplete="address-level1" placeholder="VA, CA, Ontario..." maxlength="80" required>
+              </label>
+            </div>
 
             <label>
               Pricing interest
@@ -255,9 +368,17 @@
     </main>
 
     <footer class="footer">
-      <span class="status-dot" aria-hidden="true"></span>
-      <span><span data-product-name>Quant Framework</span> early access</span>
+      <span class="brand-mark brand-mark--footer" aria-hidden="true"></span>
+      <span class="brand-lockup">
+        <span class="brand-primary" data-brand-primary>PRISM</span>
+        <span class="brand-secondary" data-brand-secondary>quant framework</span>
+      </span>
     </footer>
+
+    <div class="activity-toast" id="activityToast" role="status" aria-live="polite" hidden>
+      <span class="activity-dot" aria-hidden="true"></span>
+      <span id="activityToastText">Recent waitlist activity</span>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="app.js"></script>
