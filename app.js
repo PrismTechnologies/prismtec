@@ -303,7 +303,7 @@ function showActivityToast() {
   if (!location) return;
 
   activityToastText.textContent = isDemoActivityMode()
-    ? `Someone from ${location}, made a purchase.`
+    ? `Someone from ${location}, US made a purchase.`
     : `Someone from ${location} made a purchase.`;
   activityToast.hidden = false;
   window.requestAnimationFrame(() => {
