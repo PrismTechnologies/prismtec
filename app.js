@@ -303,8 +303,8 @@ function showActivityToast() {
   if (!location) return;
 
   activityToastText.textContent = isDemoActivityMode()
-    ? `Demo signup from ${location}`
-    : `Recent waitlist signup from ${location}`;
+    ? `Someone from ${location}, made a purchase.`
+    : `Someone from ${location} made a purchase.`;
   activityToast.hidden = false;
   window.requestAnimationFrame(() => {
     activityToast.classList.add("is-visible");
@@ -389,7 +389,7 @@ async function loadDemoActivityStats() {
       if (error) throw error;
 
       const totalCount = Number(data?.total_count);
-      setWaitlistCount(totalCount, "Demo activity mode. Supabase test counter, not live waitlist data.");
+      setWaitlistCount(totalCount, "members are currently waiting to try our state of the art quantitative trading framework and algorithms.");
       return data;
     } catch (error) {
       setWaitlistCount(NaN, "Apply the updated Supabase demo counter schema.");
