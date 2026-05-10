@@ -25,6 +25,10 @@
   box-sizing: border-box;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 76px;
@@ -800,6 +804,256 @@ code {
   background-size: 132px auto;
 }
 
+button.nav-button {
+  cursor: pointer;
+}
+
+button.nav-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+  transform: none;
+}
+
+.admin-body {
+  min-height: 100vh;
+}
+
+.admin-page {
+  min-height: calc(100vh - var(--topbar-height) - 76px);
+  padding: clamp(38px, 5vw, 72px) clamp(20px, 5vw, 64px) clamp(70px, 8vw, 110px);
+}
+
+.admin-shell {
+  width: min(1320px, 100%);
+  margin: 0 auto;
+  min-width: 0;
+}
+
+.admin-heading {
+  width: min(860px, 100%);
+  margin-bottom: 26px;
+  min-width: 0;
+}
+
+.admin-title {
+  max-width: none;
+  margin-bottom: 14px;
+  font-size: clamp(38px, 6vw, 76px);
+  line-height: 0.96;
+}
+
+.admin-heading p:not(.eyebrow),
+.admin-identity {
+  max-width: 760px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.admin-identity {
+  min-height: 24px;
+  margin-bottom: 0;
+  color: var(--cyan);
+}
+
+.admin-auth-card,
+.admin-table-shell {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(180deg, rgba(11, 34, 42, 0.9), rgba(5, 18, 23, 0.92)),
+    var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.admin-auth-card {
+  width: min(560px, 100%);
+  display: grid;
+  gap: 20px;
+  padding: clamp(22px, 4vw, 34px);
+}
+
+.admin-auth-card h2 {
+  margin-bottom: 0;
+  color: var(--text-strong);
+  font-size: clamp(26px, 4vw, 38px);
+  line-height: 1.08;
+}
+
+.admin-auth-form {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+}
+
+.admin-auth-form label,
+.admin-toolbar label {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  color: var(--cyan);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.admin-auth-form input,
+.admin-toolbar input,
+.admin-toolbar select {
+  width: 100%;
+  min-height: 46px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(3, 14, 19, 0.82);
+  color: var(--text-strong);
+  padding: 0 14px;
+  outline: none;
+  min-width: 0;
+}
+
+.admin-auth-form input:focus,
+.admin-toolbar input:focus,
+.admin-toolbar select:focus {
+  border-color: var(--cyan-strong);
+  box-shadow: 0 0 0 3px rgba(55, 183, 255, 0.14);
+}
+
+.admin-auth-form input::placeholder,
+.admin-toolbar input::placeholder {
+  color: rgba(245, 207, 76, 0.48);
+}
+
+.admin-dashboard {
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+}
+
+.admin-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.admin-metric {
+  min-height: 118px;
+  display: grid;
+  align-content: center;
+  gap: 8px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(180deg, rgba(10, 38, 46, 0.9), rgba(3, 17, 22, 0.9)),
+    var(--panel);
+  box-shadow: 0 16px 52px rgba(0, 0, 0, 0.24);
+}
+
+.admin-metric span {
+  color: var(--cyan);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.admin-metric strong {
+  color: var(--text-strong);
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: 0.95;
+}
+
+.admin-toolbar {
+  display: grid;
+  grid-template-columns: minmax(260px, 1.4fr) minmax(190px, 0.75fr) minmax(170px, 0.7fr) auto;
+  align-items: end;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(3, 14, 19, 0.58);
+  min-width: 0;
+}
+
+.admin-export-button {
+  min-width: 128px;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.admin-table-shell {
+  overflow: hidden;
+  min-width: 0;
+}
+
+.admin-table-meta {
+  min-height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--cyan);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.admin-pagination {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+}
+
+.admin-pagination .nav-button {
+  min-height: 34px;
+  padding: 0 12px;
+  font-size: 12px;
+}
+
+.admin-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  min-width: 980px;
+  border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(45, 89, 103, 0.34);
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.35;
+  text-align: left;
+  vertical-align: top;
+}
+
+.admin-table th {
+  color: var(--cyan);
+  font-size: 11px;
+  font-weight: 850;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.admin-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.admin-nowrap {
+  white-space: nowrap;
+}
+
+.admin-email-cell {
+  color: var(--text-strong);
+  font-weight: 760;
+  overflow-wrap: anywhere;
+}
+
 @media (max-width: 960px) {
   .topbar {
     padding: 0 14px;
@@ -984,5 +1238,80 @@ code {
   .pricing-card,
   .signup-shell {
     padding: 20px;
+  }
+}
+
+@media (max-width: 960px) {
+  .admin-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-toolbar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-page {
+    padding: 30px 16px 72px;
+  }
+
+  .admin-shell,
+  .admin-heading,
+  .admin-auth-card,
+  .admin-dashboard,
+  .admin-toolbar,
+  .admin-table-shell {
+    width: calc(100vw - 32px);
+    max-width: 358px;
+  }
+
+  .admin-shell {
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  .admin-title {
+    max-width: 100%;
+    font-size: clamp(34px, 10vw, 44px);
+    overflow-wrap: normal;
+  }
+
+  .admin-heading p:not(.eyebrow),
+  .admin-identity {
+    font-size: 15px;
+    overflow-wrap: anywhere;
+  }
+
+  .admin-metrics,
+  .admin-toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-auth-card {
+    padding: 20px;
+  }
+
+  .admin-auth-card h2 {
+    font-size: clamp(25px, 7vw, 30px);
+    overflow-wrap: anywhere;
+  }
+
+  .admin-export-button {
+    width: 100%;
+  }
+
+  .admin-table-meta {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-pagination {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .admin-pagination .nav-button {
+    min-width: 86px;
   }
 }

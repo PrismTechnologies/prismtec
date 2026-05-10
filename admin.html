@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="PRISM waitlist admin dashboard.">
+    <title>PRISM Waitlist Admin</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body class="admin-body">
+    <header class="topbar" aria-label="Admin navigation">
+      <a class="brand" href="index.html" aria-label="Open PRISM landing page">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-lockup">
+          <span class="brand-primary" data-brand-primary>PRISM</span>
+          <span class="brand-secondary" data-brand-secondary>quant framework</span>
+        </span>
+      </a>
+      <nav class="nav-actions" aria-label="Admin actions">
+        <a class="nav-button" href="index.html">Site</a>
+        <button class="nav-button" id="adminRefreshButton" type="button" hidden>Refresh</button>
+        <button class="nav-button nav-button--primary" id="adminSignOutButton" type="button" hidden>Sign out</button>
+      </nav>
+    </header>
+
+    <main class="admin-page" id="adminTop">
+      <section class="admin-shell" aria-labelledby="admin-title">
+        <div class="admin-heading">
+          <p class="eyebrow">Admin</p>
+          <h1 class="admin-title" id="admin-title">Waitlist dashboard</h1>
+          <p>Review signups, filter by interest, and export the currently visible list.</p>
+          <p class="admin-identity" id="adminIdentity" aria-live="polite"></p>
+        </div>
+
+        <section class="admin-auth-card" id="adminAuthPanel" aria-labelledby="admin-auth-title">
+          <div>
+            <p class="eyebrow">Secure Access</p>
+            <h2 id="admin-auth-title">Sign in with your admin credentials.</h2>
+          </div>
+          <form class="admin-auth-form" id="adminAuthForm">
+            <label>
+              Email
+              <input id="adminEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+            </label>
+            <label>
+              Password
+              <input id="adminPassword" name="password" type="password" autocomplete="current-password" placeholder="Your password" required>
+            </label>
+            <button class="submit-button" type="submit">Sign in</button>
+          </form>
+          <p class="form-status" id="adminAuthStatus" role="status" aria-live="polite"></p>
+        </section>
+
+        <section class="admin-dashboard" id="adminDashboard" aria-label="Waitlist records" hidden>
+          <div class="admin-metrics" aria-label="Waitlist summary">
+            <article class="admin-metric">
+              <span>Total signups</span>
+              <strong id="adminTotalCount">-</strong>
+            </article>
+            <article class="admin-metric">
+              <span>Today</span>
+              <strong id="adminTodayCount">-</strong>
+            </article>
+            <article class="admin-metric">
+              <span>Researcher</span>
+              <strong id="adminResearcherCount">-</strong>
+            </article>
+            <article class="admin-metric">
+              <span>Operator</span>
+              <strong id="adminOperatorCount">-</strong>
+            </article>
+          </div>
+
+          <div class="admin-toolbar" aria-label="Waitlist filters">
+            <label class="admin-search">
+              Search
+              <input id="adminSearch" type="search" placeholder="Email, region, source...">
+            </label>
+            <label>
+              Use case
+              <select id="adminUseCaseFilter">
+                <option value="">All use cases</option>
+                <option value="strategy_research">Strategy research</option>
+                <option value="portfolio_validation">Portfolio validation</option>
+                <option value="parameter_optimization">Parameter optimization</option>
+                <option value="live_monitoring">Live monitoring</option>
+              </select>
+            </label>
+            <label>
+              Plan
+              <select id="adminPlanFilter">
+                <option value="">All plans</option>
+                <option value="waitlist">Waitlist only</option>
+                <option value="researcher">Researcher</option>
+                <option value="operator">Operator</option>
+                <option value="custom">Custom or team</option>
+              </select>
+            </label>
+            <button class="submit-button admin-export-button" id="adminExportButton" type="button">Export CSV</button>
+          </div>
+
+          <div class="admin-table-shell">
+            <div class="admin-table-meta">
+              <span id="adminResultSummary" aria-live="polite">Loading signups...</span>
+              <div class="admin-pagination">
+                <button class="nav-button" id="adminPrevPage" type="button">Previous</button>
+                <span id="adminPageLabel">Page 1</span>
+                <button class="nav-button" id="adminNextPage" type="button">Next</button>
+              </div>
+            </div>
+            <div class="admin-table-scroll">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Signed up</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Use case</th>
+                    <th scope="col">Plan</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Source</th>
+                  </tr>
+                </thead>
+                <tbody id="adminRows">
+                  <tr>
+                    <td colspan="6">Loading signups...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span class="brand-mark brand-mark--footer" aria-hidden="true"></span>
+      <span class="brand-lockup">
+        <span class="brand-primary" data-brand-primary>PRISM</span>
+        <span class="brand-secondary" data-brand-secondary>quant framework</span>
+      </span>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="admin.js"></script>
+  </body>
+</html>
