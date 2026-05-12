@@ -404,6 +404,36 @@ h1 {
   overflow-wrap: anywhere;
 }
 
+.rainbow {
+  color: var(--text-strong);
+  background: linear-gradient(
+    95deg,
+    var(--cyan) 0%,
+    var(--cyan-strong) 22%,
+    #c084fc 42%,
+    #f472b6 60%,
+    var(--text-strong) 78%,
+    var(--teal) 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbow-shimmer 8s linear infinite;
+}
+
+@keyframes rainbow-shimmer {
+  to {
+    background-position: -220% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rainbow {
+    animation: none;
+  }
+}
+
 .section-heading p:not(.eyebrow),
 .signup-copy p:not(.eyebrow) {
   max-width: 760px;

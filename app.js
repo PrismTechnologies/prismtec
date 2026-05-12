@@ -375,31 +375,48 @@ function getDemoActivityState() {
   return state;
 }
 
+function withTimeout(promise, timeoutMs, message) {
+  let timeoutId;
+  const timeout = new Promise((resolve, reject) => {
+    timeoutId = window.setTimeout(() => reject(new Error(message)), timeoutMs);
+  });
+
+  return Promise.race([promise, timeout]).finally(() => {
+    window.clearTimeout(timeoutId);
+  });
+}
+
 function setDemoActivityState(state) {
   window.localStorage.setItem(DEMO_ACTIVITY_KEY, JSON.stringify(state));
 }
 
 async function loadDemoActivityStats() {
   setRecentActivity(US_STATE_CODES.map((stateCode) => ({ country: "US", state_region: stateCode })));
+  const fallbackState = getDemoActivityState();
+  setWaitlistCount(fallbackState.count, "Loading live waitlist activity...");
 
   const client = getSupabaseClient();
   if (client) {
     try {
-      const { data, error } = await client.rpc(SITE_CONFIG.supabase.demoStatsFunction);
+      const { data, error } = await withTimeout(
+        client.rpc(SITE_CONFIG.supabase.demoStatsFunction),
+        7000,
+        "Supabase waitlist count timed out."
+      );
       if (error) throw error;
 
       const totalCount = Number(data?.total_count);
       setWaitlistCount(totalCount, "members are currently waiting to try our state of the art quantitative trading framework and algorithms.");
       return data;
     } catch (error) {
-      setWaitlistCount(NaN, "Apply the updated Supabase demo counter schema.");
-      return null;
+      console.warn(error.message || "Unable to load Supabase demo activity stats.");
+      setWaitlistCount(fallbackState.count, "Using the local fallback count while Supabase is unavailable.");
+      return fallbackState;
     }
   }
 
-  const state = getDemoActivityState();
-  setWaitlistCount(state.count, "Demo activity mode. Simulated test count, not live waitlist data.");
-  return state;
+  setWaitlistCount(fallbackState.count, "Demo activity mode. Simulated test count, not live waitlist data.");
+  return fallbackState;
 }
 
 function scheduleDemoCountGrowth() {
@@ -455,9 +472,14 @@ async function loadWaitlistStats() {
   }
 
   try {
-    const { data, error } = await client.rpc(SITE_CONFIG.supabase.statsFunction, {
-      recent_limit: 24
-    });
+    setWaitlistCount(NaN, "Loading live waitlist count...");
+    const { data, error } = await withTimeout(
+      client.rpc(SITE_CONFIG.supabase.statsFunction, {
+        recent_limit: 24
+      }),
+      7000,
+      "Supabase waitlist stats timed out."
+    );
 
     if (error) throw error;
 
@@ -465,6 +487,7 @@ async function loadWaitlistStats() {
     setWaitlistCount(totalCount, "Live count from the PRISM waitlist.");
     setRecentActivity(Array.isArray(data?.recent) ? data.recent : []);
   } catch (error) {
+    console.warn(error.message || "Unable to load Supabase waitlist stats.");
     setWaitlistCount(NaN, "Apply the updated Supabase schema to enable live stats.");
   }
 }
