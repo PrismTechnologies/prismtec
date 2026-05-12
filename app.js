@@ -218,7 +218,7 @@ async function callSupabaseRpc(functionName, params = {}) {
   if (client) {
     const result = await client.rpc(functionName, params);
     if (!result.error) {
-      return result.data;
+      return { data: result.data, source: "supabase-js" };
     }
 
     console.warn(result.error.message || `Supabase RPC ${functionName} failed.`);
@@ -238,7 +238,7 @@ async function callSupabaseRpc(functionName, params = {}) {
     throw new Error(`Supabase RPC ${functionName} returned ${response.status}.`);
   }
 
-  return response.json();
+  return { data: await response.json(), source: "supabase-rest" };
 }
 
 const form = document.getElementById("waitlistForm");
@@ -277,9 +277,10 @@ function storeLocalLead(payload) {
   return true;
 }
 
-function setWaitlistCount(count, note = "") {
+function setWaitlistCount(count, note = "", source = "unknown") {
   if (waitlistCountNode) {
     waitlistCountNode.textContent = Number.isFinite(count) ? countFormatter.format(count) : "—";
+    waitlistCountNode.dataset.source = source;
   }
 
   if (waitlistCountNoteNode) {
@@ -422,27 +423,29 @@ function setDemoActivityState(state) {
 async function loadDemoActivityStats() {
   setRecentActivity(US_STATE_CODES.map((stateCode) => ({ country: "US", state_region: stateCode })));
   const fallbackState = getDemoActivityState();
-  setWaitlistCount(fallbackState.count);
+  setWaitlistCount(fallbackState.count, "", "local-fallback");
 
   if (hasSupabaseConfig()) {
     try {
-      const data = await withTimeout(
+      const result = await withTimeout(
         callSupabaseRpc(SITE_CONFIG.supabase.demoStatsFunction),
         7000,
         "Supabase waitlist count timed out."
       );
 
+      const data = result.data;
       const totalCount = Number(data?.total_count);
-      setWaitlistCount(totalCount);
+      console.info(`Waitlist count loaded from ${result.source}: ${totalCount}`);
+      setWaitlistCount(totalCount, "", result.source);
       return data;
     } catch (error) {
       console.warn(error.message || "Unable to load Supabase demo activity stats.");
-      setWaitlistCount(fallbackState.count);
+      setWaitlistCount(fallbackState.count, "", "local-fallback");
       return fallbackState;
     }
   }
 
-  setWaitlistCount(fallbackState.count);
+  setWaitlistCount(fallbackState.count, "", "local-fallback");
   return fallbackState;
 }
 
@@ -470,7 +473,7 @@ function scheduleDemoCountGrowth() {
     );
     nextState.lastIncrementAt = Date.now();
     setDemoActivityState(nextState);
-    setWaitlistCount(nextState.count);
+    setWaitlistCount(nextState.count, "", "local-fallback");
     scheduleDemoCountGrowth();
   }, delay);
 }
@@ -480,7 +483,7 @@ function addDemoSignupToCount() {
   const state = getDemoActivityState();
   state.count += 1;
   setDemoActivityState(state);
-  setWaitlistCount(state.count);
+  setWaitlistCount(state.count, "", "local-fallback");
 }
 
 async function loadWaitlistStats() {
@@ -491,13 +494,13 @@ async function loadWaitlistStats() {
 
   if (!hasSupabaseConfig()) {
     const localLeads = getLocalLeads();
-    setWaitlistCount(localLeads.length);
+    setWaitlistCount(localLeads.length, "", "local-waitlist");
     setRecentActivity(localLeads);
     return;
   }
 
   try {
-    const data = await withTimeout(
+    const result = await withTimeout(
       callSupabaseRpc(SITE_CONFIG.supabase.statsFunction, {
         recent_limit: 24
       }),
@@ -505,12 +508,14 @@ async function loadWaitlistStats() {
       "Supabase waitlist stats timed out."
     );
 
+    const data = result.data;
     const totalCount = Number(data?.total_count);
-    setWaitlistCount(totalCount);
+    console.info(`Waitlist count loaded from ${result.source}: ${totalCount}`);
+    setWaitlistCount(totalCount, "", result.source);
     setRecentActivity(Array.isArray(data?.recent) ? data.recent : []);
   } catch (error) {
     console.warn(error.message || "Unable to load Supabase waitlist stats.");
-    setWaitlistCount(NaN);
+    setWaitlistCount(NaN, "", "error");
   }
 }
 
