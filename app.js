@@ -213,6 +213,34 @@ function getSupabaseClient() {
   );
 }
 
+async function callSupabaseRpc(functionName, params = {}) {
+  const client = getSupabaseClient();
+  if (client) {
+    const result = await client.rpc(functionName, params);
+    if (!result.error) {
+      return result.data;
+    }
+
+    console.warn(result.error.message || `Supabase RPC ${functionName} failed.`);
+  }
+
+  const response = await fetch(`${SITE_CONFIG.supabase.url}/rest/v1/rpc/${functionName}`, {
+    method: "POST",
+    headers: {
+      apikey: SITE_CONFIG.supabase.anonKey,
+      Authorization: `Bearer ${SITE_CONFIG.supabase.anonKey}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(params)
+  });
+
+  if (!response.ok) {
+    throw new Error(`Supabase RPC ${functionName} returned ${response.status}.`);
+  }
+
+  return response.json();
+}
+
 const form = document.getElementById("waitlistForm");
 const formStatus = document.getElementById("formStatus");
 const waitlistCountNode = document.getElementById("waitlistCount");
@@ -249,13 +277,14 @@ function storeLocalLead(payload) {
   return true;
 }
 
-function setWaitlistCount(count, note) {
+function setWaitlistCount(count, note = "") {
   if (waitlistCountNode) {
     waitlistCountNode.textContent = Number.isFinite(count) ? countFormatter.format(count) : "—";
   }
 
   if (waitlistCountNoteNode) {
     waitlistCountNoteNode.textContent = note;
+    waitlistCountNoteNode.hidden = !note;
   }
 }
 
@@ -393,29 +422,27 @@ function setDemoActivityState(state) {
 async function loadDemoActivityStats() {
   setRecentActivity(US_STATE_CODES.map((stateCode) => ({ country: "US", state_region: stateCode })));
   const fallbackState = getDemoActivityState();
-  setWaitlistCount(fallbackState.count, "Loading live waitlist activity...");
+  setWaitlistCount(fallbackState.count);
 
-  const client = getSupabaseClient();
-  if (client) {
+  if (hasSupabaseConfig()) {
     try {
-      const { data, error } = await withTimeout(
-        client.rpc(SITE_CONFIG.supabase.demoStatsFunction),
+      const data = await withTimeout(
+        callSupabaseRpc(SITE_CONFIG.supabase.demoStatsFunction),
         7000,
         "Supabase waitlist count timed out."
       );
-      if (error) throw error;
 
       const totalCount = Number(data?.total_count);
-      setWaitlistCount(totalCount, "members are currently waiting to try our state of the art quantitative trading framework and algorithms.");
+      setWaitlistCount(totalCount);
       return data;
     } catch (error) {
       console.warn(error.message || "Unable to load Supabase demo activity stats.");
-      setWaitlistCount(fallbackState.count, "Using the local fallback count while Supabase is unavailable.");
+      setWaitlistCount(fallbackState.count);
       return fallbackState;
     }
   }
 
-  setWaitlistCount(fallbackState.count, "Demo activity mode. Simulated test count, not live waitlist data.");
+  setWaitlistCount(fallbackState.count);
   return fallbackState;
 }
 
@@ -423,7 +450,7 @@ function scheduleDemoCountGrowth() {
   window.clearTimeout(demoGrowthTimer);
   if (!isDemoActivityMode()) return;
 
-  if (getSupabaseClient()) {
+  if (hasSupabaseConfig()) {
     demoGrowthTimer = window.setTimeout(async () => {
       await loadWaitlistStats();
       scheduleDemoCountGrowth();
@@ -443,7 +470,7 @@ function scheduleDemoCountGrowth() {
     );
     nextState.lastIncrementAt = Date.now();
     setDemoActivityState(nextState);
-    setWaitlistCount(nextState.count, "Demo activity mode. Simulated test count, not live waitlist data.");
+    setWaitlistCount(nextState.count);
     scheduleDemoCountGrowth();
   }, delay);
 }
@@ -453,7 +480,7 @@ function addDemoSignupToCount() {
   const state = getDemoActivityState();
   state.count += 1;
   setDemoActivityState(state);
-  setWaitlistCount(state.count, "Demo activity mode. Simulated test count, not live waitlist data.");
+  setWaitlistCount(state.count);
 }
 
 async function loadWaitlistStats() {
@@ -462,33 +489,28 @@ async function loadWaitlistStats() {
     return;
   }
 
-  const client = getSupabaseClient();
-
-  if (!client) {
+  if (!hasSupabaseConfig()) {
     const localLeads = getLocalLeads();
-    setWaitlistCount(localLeads.length, "Local preview count. Connect Supabase for live public stats.");
+    setWaitlistCount(localLeads.length);
     setRecentActivity(localLeads);
     return;
   }
 
   try {
-    setWaitlistCount(NaN, "Loading live waitlist count...");
-    const { data, error } = await withTimeout(
-      client.rpc(SITE_CONFIG.supabase.statsFunction, {
+    const data = await withTimeout(
+      callSupabaseRpc(SITE_CONFIG.supabase.statsFunction, {
         recent_limit: 24
       }),
       7000,
       "Supabase waitlist stats timed out."
     );
 
-    if (error) throw error;
-
     const totalCount = Number(data?.total_count);
-    setWaitlistCount(totalCount, "Live count from the PRISM waitlist.");
+    setWaitlistCount(totalCount);
     setRecentActivity(Array.isArray(data?.recent) ? data.recent : []);
   } catch (error) {
     console.warn(error.message || "Unable to load Supabase waitlist stats.");
-    setWaitlistCount(NaN, "Apply the updated Supabase schema to enable live stats.");
+    setWaitlistCount(NaN);
   }
 }
 
